@@ -1,0 +1,35 @@
+{
+    "name": "goten4/gtn-datatables",
+    "type": "library",
+    "description": "Zend Framework 2 Module that provides Server Side support for jQuery DataTables",
+    "keywords": [
+        "datatables",
+        "module",
+        "zf2"
+    ],
+    "homepage": "http://github.com/goten4/GtnDataTables",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Emmanuel Bouton",
+            "email": "goten4@gmail.com",
+            "homepage": "http://github.com/goten4",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "zendframework/zend-loader": "2.3.*",
+        "zendframework/zend-modulemanager": "2.3.*"
+    },
+    "require-dev": {
+        "phpunit/PHPUnit": "3.7.*",
+        "satooshi/php-coveralls": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "GtnDataTables": "src/",
+            "GtnDataTablesTest": "tests/"
+        }
+    }
+}
