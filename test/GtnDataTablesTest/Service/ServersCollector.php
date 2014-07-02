@@ -39,9 +39,21 @@ class ServersCollector implements CollectorInterface
     {
         $servers = array();
         foreach ($this->servers as $server) {
-            if ($search === null || preg_match('/' . $search . '/', $server->getName())) {
+            /** @var Server $server */
+            if (empty($search) || preg_match('/' . $search . '/', $server->getName())) {
                 $servers[] = $server;
             }
+        }
+        if ($order != null && $order[0]['column'] == 'name' && $order[0]['dir'] == 'desc') {
+            usort($servers, function (Server $a, Server $b) {
+                if ($a->getName() === $b->getName()) {
+                    return 0;
+                }
+                if ($a->getName() > $b->getName()) {
+                    return -1;
+                }
+                return 1;
+            });
         }
         $total = count($servers);
         return Collection::factory(array_slice($servers, $start, $length), $total, $total);

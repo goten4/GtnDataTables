@@ -33,7 +33,16 @@ class DataTable
     {
         $datatable = new Model\DataTable();
 
-        $collection = $this->getCollector()->findAll($params['start'], $params['length'], $params['search']['value']);
+        $order = array();
+        if (isset($params['order'])) {
+            foreach ($params['order'] as $clause) {
+                $order[] = array(
+                    'column' => $this->getColumn($clause['column'])->getKey(),
+                    'dir' => $clause['dir'],
+                );
+            }
+        }
+        $collection = $this->getCollector()->findAll($params['start'], $params['length'], $params['search']['value'], $order);
         $data = array();
         foreach ($collection as $object) {
             $row = array();
@@ -71,6 +80,15 @@ class DataTable
     {
         $this->collector = $collector;
         return $this;
+    }
+
+    /**
+     * @param $index
+     * @return Model\Column
+     */
+    public function getColumn($index)
+    {
+        return $this->columns[$index];
     }
 
     /**

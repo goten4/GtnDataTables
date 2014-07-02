@@ -51,6 +51,34 @@ class DataTableTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(8, $datatable->getRecordsTotal());
     }
 
+    /** @test */
+    public function canCreateWithOrdering()
+    {
+        $datatable = $this->service->create(array(
+            'draw' => 8,
+            'start' => 0,
+            'length' => 5,
+            'search' => array(
+                'value' => '',
+            ),
+            'order' => array(
+                array('column' => 0, 'dir' => 'desc'),
+            ),
+        ));
+
+        $this->assertInstanceOf('GtnDataTables\Model\DataTable', $datatable);
+        $this->assertEquals(array(
+            array('<strong>node9.local</strong>', '<a href="/servers/node9.local/delete">delete</a>'),
+            array('<strong>node8.local</strong>', '<a href="/servers/node8.local/delete">delete</a>'),
+            array('<strong>node7.local</strong>', '<a href="/servers/node7.local/delete">delete</a>'),
+            array('<strong>node6.local</strong>', '<a href="/servers/node6.local/delete">delete</a>'),
+            array('<strong>node5.local</strong>', '<a href="/servers/node5.local/delete">delete</a>'),
+        ), $datatable->getData());
+        $this->assertEquals(8, $datatable->getDraw());
+        $this->assertEquals(12, $datatable->getRecordsFiltered());
+        $this->assertEquals(12, $datatable->getRecordsTotal());
+    }
+
     /**
      * @return ServiceManager
      */
