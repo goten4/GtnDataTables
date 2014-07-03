@@ -1,7 +1,7 @@
 <?php
 namespace GtnDataTables\Model;
 
-class DataTable
+class Result
 {
     /** @var int */
     protected $data;
@@ -29,7 +29,7 @@ class DataTable
      * Set data.
      *
      * @param int $data
-     * @return DataTable
+     * @return Result
      */
     public function setData($data)
     {
@@ -51,7 +51,7 @@ class DataTable
      * Set Draw.
      *
      * @param int $draw
-     * @return DataTable
+     * @return Result
      */
     public function setDraw($draw)
     {
@@ -73,7 +73,7 @@ class DataTable
      * Set RecordsFiltered.
      *
      * @param int $recordsFiltered
-     * @return DataTable
+     * @return Result
      */
     public function setRecordsFiltered($recordsFiltered)
     {
@@ -95,7 +95,7 @@ class DataTable
      * Set RecordsTotal.
      *
      * @param int $recordsTotal
-     * @return DataTable
+     * @return Result
      */
     public function setRecordsTotal($recordsTotal)
     {

@@ -27,11 +27,11 @@ class DataTable
 
     /**
      * @param $params
-     * @return Model\DataTable
+     * @return Model\Result
      */
-    public function create($params)
+    public function getResult($params)
     {
-        $datatable = new Model\DataTable();
+        $datatable = new Model\Result();
 
         $order = array();
         if (isset($params['order'])) {

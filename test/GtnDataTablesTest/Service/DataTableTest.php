@@ -27,9 +27,9 @@ class DataTableTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
-    public function canCreateWithSearch()
+    public function canGetResultWithSearch()
     {
-        $datatable = $this->service->create(array(
+        $result = $this->service->getResult(array(
             'draw' => 8,
             'start' => 0,
             'length' => 5,
@@ -38,23 +38,23 @@ class DataTableTest extends \PHPUnit_Framework_TestCase
             ),
         ));
 
-        $this->assertInstanceOf('GtnDataTables\Model\DataTable', $datatable);
+        $this->assertInstanceOf('GtnDataTables\Model\Result', $result);
         $this->assertEquals(array(
             array('<strong>node2.local</strong>', '<a href="/servers/node2.local/delete">delete</a>'),
             array('<strong>node3.local</strong>', '<a href="/servers/node3.local/delete">delete</a>'),
             array('<strong>node4.local</strong>', '<a href="/servers/node4.local/delete">delete</a>'),
             array('<strong>node5.local</strong>', '<a href="/servers/node5.local/delete">delete</a>'),
             array('<strong>node6.local</strong>', '<a href="/servers/node6.local/delete">delete</a>'),
-        ), $datatable->getData());
-        $this->assertEquals(8, $datatable->getDraw());
-        $this->assertEquals(8, $datatable->getRecordsFiltered());
-        $this->assertEquals(8, $datatable->getRecordsTotal());
+        ), $result->getData());
+        $this->assertEquals(8, $result->getDraw());
+        $this->assertEquals(8, $result->getRecordsFiltered());
+        $this->assertEquals(8, $result->getRecordsTotal());
     }
 
     /** @test */
-    public function canCreateWithOrdering()
+    public function canGetResultWithOrdering()
     {
-        $datatable = $this->service->create(array(
+        $result = $this->service->getResult(array(
             'draw' => 8,
             'start' => 0,
             'length' => 5,
@@ -66,17 +66,17 @@ class DataTableTest extends \PHPUnit_Framework_TestCase
             ),
         ));
 
-        $this->assertInstanceOf('GtnDataTables\Model\DataTable', $datatable);
+        $this->assertInstanceOf('GtnDataTables\Model\Result', $result);
         $this->assertEquals(array(
             array('<strong>node9.local</strong>', '<a href="/servers/node9.local/delete">delete</a>'),
             array('<strong>node8.local</strong>', '<a href="/servers/node8.local/delete">delete</a>'),
             array('<strong>node7.local</strong>', '<a href="/servers/node7.local/delete">delete</a>'),
             array('<strong>node6.local</strong>', '<a href="/servers/node6.local/delete">delete</a>'),
             array('<strong>node5.local</strong>', '<a href="/servers/node5.local/delete">delete</a>'),
-        ), $datatable->getData());
-        $this->assertEquals(8, $datatable->getDraw());
-        $this->assertEquals(12, $datatable->getRecordsFiltered());
-        $this->assertEquals(12, $datatable->getRecordsTotal());
+        ), $result->getData());
+        $this->assertEquals(8, $result->getDraw());
+        $this->assertEquals(12, $result->getRecordsFiltered());
+        $this->assertEquals(12, $result->getRecordsTotal());
     }
 
     /**
