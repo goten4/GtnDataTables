@@ -13,14 +13,23 @@
 
 ## Installation
 
-* Simply clone this project into your `./vendor/` directory or add the following line in the require section of your composer.json :
- "goten4/gtn-datatables": "dev-master"
+* Add the following line in the require section of your composer.json
 
-* Enable it in your `./config/application.config.php` file.
+    "goten4/gtn-datatables": "dev-master"
 
-* Configure your datatables.
+* Then run the following command
 
-Configuration example:
+    php composer.phar update
+
+* Or simply clone this project into your `./vendor/` directory.
+
+* Enable the module in your `./config/application.config.php` file.
+
+## Usage
+
+A good example is worth a thousand words ;)
+
+### Configuration
 
     'datatables' => array(
         'servers_datatable' => array(
@@ -64,3 +73,63 @@ Configuration example:
             )
         )
     )
+
+### Collector
+
+    class ServersCollector implements CollectorInterface
+    {
+        /**
+         * @param int    $start
+         * @param int    $length
+         * @param string $search
+         * @param array  $order
+         * @return array
+         */
+        public function findAll($start = null, $length = null, $search = null, $order = null)
+        {
+            // Get the $servers, $total and $filteredCount
+            return Collection::factory($servers, $total, $filteredCount);
+        }
+    }
+
+### Column Decorator
+
+    class ServerNameDecorator extends AbstractDecorator
+    {
+        /**
+         * @return string
+         */
+        public function decorateTitle()
+        {
+            return $this->getViewHelperManager()->get('translator')->translate('Server');
+        }
+
+        /**
+         * @param Server $object
+         * @return string
+         */
+        public function decorateValue($object)
+        {
+            return '<strong>' . $object->getName() . '</strong>';
+        }
+    }
+
+
+### In the controller
+
+    public function indexAction()
+    {
+        $model = new JsonModel();
+        $datatable = $this->getServiceLocator()->get('servers_datatable');
+        $result = $datatable->getResult($this->params()->fromQuery());
+        $model->setVariable('draw', $result->getDraw());
+        $model->setVariable('recordsTotal', $result->getRecordsTotal());
+        $model->setVariable('recordsFiltered', $result->getRecordsFiltered());
+        $model->setVariable('data', $result->getData());
+        return $model;
+    }
+
+
+### In the view
+
+    <?php echo $this->dataTable('servers_datatable')->renderHtml(); ?>
