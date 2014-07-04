@@ -18,47 +18,49 @@
 
 * Enable it in your `./config/application.config.php` file.
 
-* Configure your datatables. Configuration example:
- 
-     'datatables' => array(
-         'servers_datatable' => array(
-             /**
-              * Id attribute of the table HTML element.
-              * Optional: if not provided the key of the datatable config is used (servers_datatable here).
-              */
-             'id' => 'servers',
+* Configure your datatables.
 
-             /**
-              * Class attribute of the table HTML element.
-              * Optional.
-              */
-             'classes' => array('table', 'bootstrap-datatable'),
+Configuration example:
 
-             /**
-              * Must implements Zend\ServiceManager\FactoryInterface.
-              * createService method must return GtnDataTables\CollectorInterface.
-              * Mandatory.
-              */
-             'collectorFactory' => 'MyProject\Service\MyCollectorFactory',
+    'datatables' => array(
+        'servers_datatable' => array(
+            /**
+             * Id attribute of the table HTML element.
+             * Optional: if not provided the key of the datatable config is used (servers_datatable here).
+             */
+            'id' => 'servers',
 
-             /**
-              * List of the columns of the datatable.
-              * Mandatory.
-              */
-             'columns' => array(
-                 array(
-                     /**
-                      * Must extend GtnDataTables\View\AbstractDecorator.
-                      * Mandatory.
-                      */
-                     'decorator' => 'MyProject\View\MyDecorator',
+            /**
+             * Class attribute of the table HTML element.
+             * Optional.
+             */
+            'classes' => array('table', 'bootstrap-datatable'),
 
-                     /**
-                      * Used to identify the column for ordering.
-                      * Optionnal (if the column is not orderable).
-                      */
-                     'key' => 'name',
-                 )
-             )
-         )
-     )
+            /**
+             * Must implements Zend\ServiceManager\FactoryInterface.
+             * createService method must return GtnDataTables\CollectorInterface.
+             * Mandatory.
+             */
+            'collectorFactory' => 'MyProject\Service\MyCollectorFactory',
+
+            /**
+             * List of the columns of the datatable.
+             * Mandatory.
+             */
+            'columns' => array(
+                array(
+                    /**
+                     * Must extend GtnDataTables\View\AbstractDecorator.
+                     * Mandatory.
+                     */
+                    'decorator' => 'MyProject\View\MyDecorator',
+
+                    /**
+                     * Used to identify the column for ordering.
+                     * Optionnal (if the column is not orderable).
+                     */
+                    'key' => 'name',
+                )
+            )
+        )
+    )
