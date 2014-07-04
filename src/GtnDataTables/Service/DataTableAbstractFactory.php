@@ -1,6 +1,7 @@
 <?php
 namespace GtnDataTables\Service;
 
+use GtnDataTables\Exception\MissingConfigurationException;
 use GtnDataTables\Model\Column;
 use Zend\ServiceManager\AbstractFactoryInterface;
 use Zend\ServiceManager\FactoryInterface;
@@ -45,22 +46,34 @@ class DataTableAbstractFactory implements AbstractFactoryInterface
      * @param                         $name
      * @param                         $requestedName
      * @return mixed
+     * @throws MissingConfigurationException
      */
     public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
     {
         $config = $this->getConfig($serviceLocator);
         $config = $config[$requestedName];
 
+        if (!isset($config['collectorFactory'])) {
+            throw new MissingConfigurationException('Unable to create DataTable service: collectorFactory is missing');
+        }
+
+        if (!isset($config['columns']) || empty($config['columns'])) {
+            throw new MissingConfigurationException('Unable to create DataTable service: columns are missing');
+        }
+
         /** @var FactoryInterface $collectorFactory */
         $collectorFactory = new $config['collectorFactory'];
 
-        $datatable = new DataTable();
+        $datatable = new DataTable(isset($config['id']) ? $config['id'] : $requestedName);
         $datatable->setCollector($collectorFactory->createService($serviceLocator));
         $columns = array();
         foreach ($config['columns'] as $columnConfig) {
             $columns[] = Column::factory($serviceLocator, $columnConfig);
         }
         $datatable->setColumns($columns);
+        if (isset($config['classes'])) {
+            $datatable->setClasses($config['classes']);
+        }
 
         return $datatable;
     }

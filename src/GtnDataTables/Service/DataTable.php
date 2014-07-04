@@ -5,24 +5,30 @@ use GtnDataTables\Model;
 
 class DataTable
 {
-    /**
-     * @var CollectorInterface
-     */
+    /** @var string */
+    protected $id;
+
+    /** @var array */
+    protected $classes;
+
+    /** @var CollectorInterface */
     protected $collector;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $columns;
 
     /**
+     * @param string             $id
      * @param CollectorInterface $collector
      * @param array              $columns
+     * @param array              $classes
      */
-    public function __construct(CollectorInterface $collector = null, array $columns = null)
+    public function __construct($id = null, CollectorInterface $collector = null, array $columns = null, array $classes = null)
     {
+        $this->setId($id);
         $this->setCollector($collector);
         $this->setColumns($columns);
+        $this->setClasses($classes);
     }
 
     /**
@@ -58,6 +64,28 @@ class DataTable
         $datatable->setRecordsTotal($collection->getTotal());
 
         return $datatable;
+    }
+
+    /**
+     * Get Id.
+     *
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set Id.
+     *
+     * @param string $id
+     * @return DataTable
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
     }
 
     /**
@@ -110,6 +138,28 @@ class DataTable
     public function setColumns($columns)
     {
         $this->columns = $columns;
+        return $this;
+    }
+
+    /**
+     * Get Classes.
+     *
+     * @return array
+     */
+    public function getClasses()
+    {
+        return $this->classes;
+    }
+
+    /**
+     * Set Classes.
+     *
+     * @param array $classes
+     * @return DataTable
+     */
+    public function setClasses($classes)
+    {
+        $this->classes = $classes;
         return $this;
     }
 }
