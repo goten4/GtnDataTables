@@ -29,14 +29,15 @@ class ServersCollector implements CollectorInterface
     }
 
     /**
-     * @param int    $start
-     * @param int    $length
-     * @param string $search
-     * @param array  $order
+     * @param array $params
      * @return array
      */
-    public function findAll($start = null, $length = null, $search = null, $order = null)
+    public function findAll(array $params = null)
     {
+        $start = isset($params['start']) ? $params['start'] : null;
+        $length = isset($params['length']) ? $params['length'] : null;
+        $search = isset($params['search']['value']) ? $params['search']['value'] : null;
+        $order = isset($params['order']) ? $params['order'] : null;
         $servers = array();
         foreach ($this->servers as $server) {
             /** @var Server $server */

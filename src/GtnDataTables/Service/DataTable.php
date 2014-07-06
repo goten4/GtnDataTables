@@ -48,7 +48,16 @@ class DataTable
                 );
             }
         }
-        $collection = $this->getCollector()->findAll($params['start'], $params['length'], $params['search']['value'], $order);
+        $params['order'] = $order;
+
+        if (isset($params['columns'])) {
+            foreach ($params['columns'] as $index => $column) {
+                $params['columns'][$index]['column'] = $this->getColumn($index)->getKey();
+            }
+        }
+
+        $collection = $this->getCollector()->findAll($params);
+
         $data = array();
         foreach ($collection as $object) {
             $row = array();
