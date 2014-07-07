@@ -68,7 +68,7 @@ class DataTable
             $data[] = $row;
         }
         $datatable->setData($data);
-        $datatable->setDraw(intval($params['draw']));
+        $datatable->setDraw(isset($params['draw']) ? intval($params['draw']) : null);
         $datatable->setRecordsFiltered($collection->getFilteredCount());
         $datatable->setRecordsTotal($collection->getTotal());
 
