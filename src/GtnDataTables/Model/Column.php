@@ -49,10 +49,6 @@ class Column
         $viewHelperManager = $serviceLocator->get('ViewHelperManager');
         $decorator->setViewHelperManager($viewHelperManager);
 
-        /** @var PluginManager $controllerPluginManager */
-        $controllerPluginManager = $serviceLocator->get('ControllerPluginManager');
-        $decorator->setControllerPluginManager($controllerPluginManager);
-
         $column = new Column($decorator);
         $column->setKey(isset($config['key']) ? $config['key'] : null);
 

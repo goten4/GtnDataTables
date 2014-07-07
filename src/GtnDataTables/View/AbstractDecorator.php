@@ -46,50 +46,13 @@ abstract class AbstractDecorator
     }
 
     /**
-     * Get controller plugin manager
-     *
-     * @return PluginManager
-     */
-    public function getControllerPluginManager()
-    {
-        return $this->controllerPluginManager;
-    }
-
-    /**
-     * Set controller plugin manager
-     *
-     * @param  PluginManager $controllerPluginManager
-     * @return AbstractDecorator
-     */
-    public function setControllerPluginManager(PluginManager $controllerPluginManager)
-    {
-        $this->controllerPluginManager = $controllerPluginManager;
-        return $this;
-    }
-
-    /**
-     * Get plugin instance
-     *
-     * @param  string $name Name of plugin to return
-     * @return mixed
-     */
-    public function plugin($name)
-    {
-        $plugin = $this->getViewHelperManager()->get($name);
-        if ($plugin !== null) {
-            return $this->getViewHelperManager()->get($name);
-        }
-        return $this->getControllerPluginManager()->get($name);
-    }
-
-    /**
      * @param       $name
      * @param array $arguments
      * @return mixed
      */
     public function __call($name, array $arguments = array())
     {
-        $plugin = $this->plugin($name);
+        $plugin = $this->getViewHelperManager()->get($name);
         if (is_callable($plugin)) {
             return call_user_func_array($plugin, $arguments);
         }
