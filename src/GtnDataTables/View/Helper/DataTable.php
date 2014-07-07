@@ -4,11 +4,10 @@ namespace GtnDataTables\View\Helper;
 use GtnDataTables\Model\Column;
 use GtnDataTables\View\Helper;
 use GtnDataTables\Service;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Helper\AbstractHelper;
 
-class DataTable extends AbstractHelper implements ServiceLocatorAwareInterface
+class DataTable extends AbstractHelper
 {
     /** @var ServiceLocatorInterface */
     protected $serviceLocator;

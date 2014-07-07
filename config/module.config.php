@@ -6,8 +6,8 @@ return array(
         ),
     ),
     'view_helpers' => array(
-        'invokables' => array(
-            'datatable' => 'GtnDataTables\View\Helper\DataTable',
+        'factories' => array(
+            'datatable' => 'GtnDataTables\View\Helper\DataTableFactory',
         ),
     ),
 );
