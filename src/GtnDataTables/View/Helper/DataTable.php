@@ -4,14 +4,14 @@ namespace GtnDataTables\View\Helper;
 use GtnDataTables\Model\Column;
 use GtnDataTables\View\Helper;
 use GtnDataTables\Service;
-use Zend\ServiceManager\ServiceManager;
-use Zend\ServiceManager\ServiceManagerAwareInterface;
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Helper\AbstractHelper;
 
-class DataTable extends AbstractHelper implements ServiceManagerAwareInterface
+class DataTable extends AbstractHelper implements ServiceLocatorAwareInterface
 {
-    /** @var ServiceManager */
-    protected $serviceManager;
+    /** @var ServiceLocatorInterface */
+    protected $serviceLocator;
 
     /** @var Service\DataTable */
     protected $datatable;
@@ -22,7 +22,7 @@ class DataTable extends AbstractHelper implements ServiceManagerAwareInterface
      */
     public function __invoke($key)
     {
-        $this->datatable = $this->serviceManager->get($key);
+        $this->datatable = $this->serviceLocator->get($key);
         return $this;
     }
 
@@ -52,12 +52,22 @@ EOD;
     }
 
     /**
-     * Set service manager
+     * Get service locator
      *
-     * @param ServiceManager $serviceManager
+     * @return ServiceLocatorInterface
      */
-    public function setServiceManager(ServiceManager $serviceManager)
+    public function getServiceLocator()
     {
-        $this->serviceManager = $serviceManager;
+        return $this->serviceLocator;
+    }
+
+    /**
+     * Set service locator
+     *
+     * @param ServiceLocatorInterface $serviceLocator
+     */
+    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    {
+        $this->serviceLocator = $serviceLocator;
     }
 }

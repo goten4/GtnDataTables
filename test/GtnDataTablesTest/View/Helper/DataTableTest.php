@@ -27,7 +27,7 @@ class DataTableTest extends \PHPUnit_Framework_TestCase
             ->with('servers_datatable')
             ->will($this->returnValue($datatable));
         $helper = new Helper\DataTable();
-        $helper->setServiceManager($serviceManager);
+        $helper->setServiceLocator($serviceManager);
 
         $result = $helper('servers_datatable')->renderHtml();
 
