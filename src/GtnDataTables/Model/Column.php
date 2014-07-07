@@ -4,8 +4,9 @@ namespace GtnDataTables\Model;
 use GtnDataTables\Exception\MissingConfigurationException;
 use GtnDataTables\Exception\UnexpectedValueException;
 use GtnDataTables\View\AbstractDecorator;
-use Zend\ServiceManager\AbstractPluginManager;
+use Zend\Mvc\Controller\PluginManager;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\View\HelperPluginManager;
 
 class Column
 {
@@ -44,9 +45,13 @@ class Column
             throw new UnexpectedValueException("Unable to create Column: $decoratorClass should extend GtnDataTables\\View\\AbstractDecorator");
         }
 
-        /** @var AbstractPluginManager $viewHelperManager */
+        /** @var HelperPluginManager $viewHelperManager */
         $viewHelperManager = $serviceLocator->get('ViewHelperManager');
         $decorator->setViewHelperManager($viewHelperManager);
+
+        /** @var PluginManager $controllerPluginManager */
+        $controllerPluginManager = $serviceLocator->get('ControllerPluginManager');
+        $decorator->setControllerPluginManager($controllerPluginManager);
 
         $column = new Column($decorator);
         $column->setKey(isset($config['key']) ? $config['key'] : null);

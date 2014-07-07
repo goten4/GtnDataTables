@@ -87,6 +87,7 @@ class DataTableTest extends \PHPUnit_Framework_TestCase
         $serviceManager = new ServiceManager(new ServiceManagerConfig(array(
             'factories' => array(
                 'ViewHelperManager' => 'Zend\Mvc\Service\ViewHelperManagerFactory',
+                'ControllerPluginManager' => 'Zend\Mvc\Service\ControllerPluginManagerFactory',
             ),
         )));
         $serviceManager->setService('Config', array());

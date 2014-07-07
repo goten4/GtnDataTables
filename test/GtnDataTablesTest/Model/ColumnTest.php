@@ -14,6 +14,7 @@ class ColumnTest extends \PHPUnit_Framework_TestCase
         $this->serviceManager = new ServiceManager(new ServiceManagerConfig(array(
             'factories' => array(
                 'ViewHelperManager' => 'Zend\Mvc\Service\ViewHelperManagerFactory',
+                'ControllerPluginManager' => 'Zend\Mvc\Service\ControllerPluginManagerFactory',
             ),
         )));
         $this->serviceManager->setService('Config', array());
@@ -51,7 +52,8 @@ class ColumnTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('GtnDataTables\Model\Column', $column);
         $this->assertInstanceOf('GtnDataTables\View\AbstractDecorator', $column->getDecorator());
-        $this->assertInstanceOf('Zend\ServiceManager\AbstractPluginManager', $column->getDecorator()->getViewHelperManager());
+        $this->assertInstanceOf('Zend\View\HelperPluginManager', $column->getDecorator()->getViewHelperManager());
+        $this->assertInstanceOf('Zend\Mvc\Controller\PluginManager', $column->getDecorator()->getControllerPluginManager());
         $this->assertEquals('name', $column->getKey());
     }
 

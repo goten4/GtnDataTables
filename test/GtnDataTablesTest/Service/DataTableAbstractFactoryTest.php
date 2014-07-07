@@ -171,6 +171,7 @@ class DataTableAbstractFactoryTest extends \PHPUnit_Framework_TestCase
         $serviceManager = new ServiceManager(new ServiceManagerConfig(array(
             'factories' => array(
                 'ViewHelperManager' => 'Zend\Mvc\Service\ViewHelperManagerFactory',
+                'ControllerPluginManager' => 'Zend\Mvc\Service\ControllerPluginManagerFactory',
             ),
             'abstract_factories' => array(
                 'GtnDataTables\Service\DataTableAbstractFactory',
