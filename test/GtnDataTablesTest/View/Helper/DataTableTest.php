@@ -6,6 +6,7 @@ use GtnDataTables\Service;
 use GtnDataTables\View\Helper;
 use GtnDataTablesTest\View\ServerActionsDecorator;
 use GtnDataTablesTest\View\ServerNameDecorator;
+use Zend\View\HelperPluginManager;
 
 class DataTableTest extends \PHPUnit_Framework_TestCase
 {
@@ -26,8 +27,10 @@ class DataTableTest extends \PHPUnit_Framework_TestCase
             ->method('get')
             ->with('servers_datatable')
             ->will($this->returnValue($datatable));
+        $helperPluginManager = new HelperPluginManager();
+        $helperPluginManager->setServiceLocator($serviceManager);
         $helper = new Helper\DataTable();
-        $helper->setServiceLocator($serviceManager);
+        $helper->setServiceLocator($helperPluginManager);
 
         $result = $helper('servers_datatable')->renderHtml();
 
