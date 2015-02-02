@@ -16,9 +16,10 @@ class ServerNameDecorator extends AbstractDecorator
 
     /**
      * @param Server $object
+     * @param $context
      * @return string
      */
-    public function decorateValue($object)
+    public function decorateValue($object, $context = null)
     {
         return '<strong>' . $object->getName() . '</strong>';
     }

@@ -19,9 +19,10 @@ abstract class AbstractDecorator
 
     /**
      * @param $object
+     * @param $context
      * @return string
      */
-    abstract public function decorateValue($object);
+    abstract public function decorateValue($object, $context = null);
 
     /**
      * Get ViewHelperManager.

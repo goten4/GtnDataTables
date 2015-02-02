@@ -33,9 +33,10 @@ class DataTable
 
     /**
      * @param $params
+     * @param $context
      * @return Model\Result
      */
-    public function getResult($params)
+    public function getResult($params, $context = null)
     {
         $datatable = new Model\Result();
 
@@ -63,7 +64,7 @@ class DataTable
             $row = array();
             foreach ($this->getColumns() as $column) {
                 /** @var Model\Column $column */
-                $row[] = $column->getDecorator()->decorateValue($object);
+                $row[] = $column->getDecorator()->decorateValue($object, $context);
             }
             $data[] = $row;
         }
