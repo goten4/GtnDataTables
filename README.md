@@ -43,7 +43,7 @@ A good example is worth a thousand words ;)
              * Class attribute of the table HTML element.
              * Optional.
              */
-            'classes' => array('table', 'bootstrap-datatable'),
+            'classes' => ['table', 'bootstrap-datatable'],
 
             /**
              * Must implements Zend\ServiceManager\FactoryInterface.
@@ -56,8 +56,8 @@ A good example is worth a thousand words ;)
              * List of the columns of the datatable.
              * Mandatory.
              */
-            'columns' => array(
-                array(
+            'columns' => [
+                [
                     /**
                      * Must extend GtnDataTables\View\AbstractDecorator.
                      * Mandatory.
@@ -69,8 +69,8 @@ A good example is worth a thousand words ;)
                      * Optionnal (if the column is not orderable).
                      */
                     'key' => 'name',
-                )
-            )
+                ]
+            ]
         )
     )
 
@@ -79,15 +79,13 @@ A good example is worth a thousand words ;)
     class ServersCollector implements CollectorInterface
     {
         /**
-         * @param int    $start
-         * @param int    $length
-         * @param string $search
-         * @param array  $order
-         * @return array
+         * @param array $params
+         * @return Collection
          */
-        public function findAll($start = null, $length = null, $search = null, $order = null)
+        public function findAll(array $params = null)
         {
-            // Get the $servers, $total and $filteredCount
+            // Get the $servers, $total and $filteredCount from database (or any other data source)
+            
             return Collection::factory($servers, $total, $filteredCount);
         }
     }
